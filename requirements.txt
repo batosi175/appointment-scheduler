@@ -1,0 +1,41 @@
+Hi Carlos, apologies again for the time mixup, but thank you for taking my call.
+
+Below are the specifications for the project we discussed.  
+After you get a chance to review it, could you let me know if this is something you'd like to try out, and if so, what rough timeline you think you'd expect?
+
+Looking forward to hearing from you!
+
+Greg
+
+------
+Specifications for FBS's HTML, JavaScript, CSS project
+
+Write a calendar application using HTML, JavaScript, and CSS. The user interface should generally have two panes.  
+One pane should have a calendar with clickable days, and the other should have time slots for a selected day.  
+The time slots can be in any increment you wish - hourly, 30-minutes, 15-minutes, etc. 
+Each time slot must be able to have a text message attached to be able to make appointments.
+
+A walk-through of a sample use of this application is as follows. 
+The user clicks on a day on the calendar, say, February 25th. 
+The time slot panel updates to reflect the appointments for that day. 
+The user then has the ability to edit an appointment for a given time slot, including slots that have no appointments.
+
+The instructions are purposefully vague to provide freedom to design the user interface with whatever controls, 
+graphics, and usability characteristics you feel are best.
+
+While the page may be written using whatever techniques you think work best, the following are desirable, but not necessary, attributes:
+
+Page makes use of style sheets (external, internal, or in-line). However, visual design is not a major consideration with this project.
+
+Page renders similarly and functions in major browsers, using the same code (Edge, Firefox, Chrome, and Safari)
+
+Data does not need to be persistent through a browser refresh.  
+But, you could use JavaScript objects or local storage to store the scheduling data if you'd like.
+Page does not use plugins such as Flash, or anything proprietary to a single browser, but you may use 
+JavaScript toolkits/frameworks such as jQuery, Fullcalendar, etc.
+
+The project will be examined based on the quality of code, ease of use of the user interface, look and feel, and feature set.  
+As I mentioned in the interview, the main goal is to understand how you develop software 
+and your thinking behind the process more than the project itself, though the project is still important, too.
+
+You may use any resource available to you to complete this project.  Please let me know if you have any questions.
