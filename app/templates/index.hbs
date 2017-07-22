@@ -1,0 +1,10 @@
+{{! app/templates/index.hbs }}
+{{as-calendar
+  title="Ember Calendar"
+  occurrences=occurrences
+  dayStartingTime="9:00"
+  dayEndingTime="18:00"
+  timeSlotDuration="00:15"
+  onAddOccurrence=(action "calendarAddOccurrence")
+  onUpdateOccurrence=(action "calendarUpdateOccurrence")
+  onRemoveOccurrence=(action "calendarRemoveOccurrence")}}
