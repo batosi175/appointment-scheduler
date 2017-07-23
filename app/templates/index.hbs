@@ -1,10 +1,25 @@
-{{! app/templates/index.hbs }}
-{{as-calendar
-  title="Ember Calendar"
-  occurrences=occurrences
-  dayStartingTime="9:00"
-  dayEndingTime="18:00"
-  timeSlotDuration="00:15"
-  onAddOccurrence=(action "calendarAddOccurrence")
-  onUpdateOccurrence=(action "calendarUpdateOccurrence")
-  onRemoveOccurrence=(action "calendarRemoveOccurrence")}}
+<div class="col-xs-6 calendar-month">
+{{full-calendar events=events 
+dayClick=(action 'dayClicked')
+eventClick=(action 'eventClicked')
+slotDuration='00:30:00'
+eventDragStop=(action 'monthDragStop')
+eventResizeStop=(action 'monthResizeStop')
+}}
+</div>
+
+<div class="col-xs-6 calendar-day">
+{{full-calendar events=events 
+viewName='agendaDay'
+slotDuration='00:30:00'
+slotLabelFormat='h(:mm)a'
+dayClick=(action 'addEvent')
+eventClick=(action 'editEvent')
+eventRender=(action 'eventRender')
+eventAfterAllRender=( action 'eventAfterAllRender')
+eventDragStop=(action 'eventDragStop')
+eventResizeStop=(action 'eventResizeStop')
+date=selectedDay
+aspectRatio=dayAspectRatio
+}}
+</div>
