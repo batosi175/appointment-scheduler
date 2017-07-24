@@ -7,119 +7,122 @@ import Ember from 'ember';
 const { Logger: { log }, $ } = Ember;
 
 export default Ember.Controller.extend({
-  dayAspectRatio: 1.0,
+  id: idGenerator(),
+  dayAspectRatio: 1.1,
   selectedDay: new moment(),
   events: Ember.A([{
-    id: 0,
+    id: idGenerator(),
     title: 'Event 1',
     className: 'regular-event',
     start: '2017-07-20T07:30:00',
     end: '2017-07-20T09:00:00',
-    editable: true
+    editable: true,
+    content: ''
   },
   {
-    id: 1,
+    id: idGenerator(),
     title: 'Generated Event',
     className: 'regular-event',
     start: new moment().minute(0).second(0),
-    editable: true
+    editable: true,
+    content: ''
   },  {
-    id: 2,
+    id: idGenerator(),
     title: 'All Day Event',
     className: 'all-day-event',
     allDay: true,
-    // color: 'red',
     start: '2017-07-19',
-    editable: true
+    editable: true,
+    content: ''
   }
   ]),
 
   actions: {
+    // handles the callback from calendar drag and drop functions
+    calendarEventUpdate: function(event, jsEvent, ui, view) {
+      // here we have to set the controller events object because map returns a copy of the array and does not mutate it
+      var updatedEvents = this.get('events').map(e => {
+        if (e.id === event.id) {
+          return event
+        }
+        return e;
+      });
+      this.set('events', updatedEvents);
+    },
+
     // month calendar interactions
     dayClicked: function(date, jsEvent, view) {
-      // log('day clicked');
-      this.set('selectedDay', date);
+      // takes the user to the correct day on the agenda unless theya re editing an event
+      if (!this.get('editingEventDetails')) {
+        this.set('selectedDay', date);
+      }
     },
     eventClicked: function(event, jsEvent, view) {
-      // debugger;
-      log('event cal clicked')
-      // debugger;
-      // $('.full-calendar').fullCalendar('updateEvent', event);
-      this.set('selectedDay', event.start);
-      // $('.calendar-day .fc-scroller,fc-time-grid-container')
-      //   .animate({scrollTop: $(`.calendar-day .regular-event`)[0].style.top}, 2000);
+      // takes the user to the correct day on the agenda unless they are editing an event
+      if (!this.get('editingEventDetails')) {
+        this.set('selectedDay', event.start);
+      }
     },
-    monthDragStop: function(event, jsEvent, ui, view) {
-      var updatedEvents = this.get('events').map(e => {
-        if (e.id === event.id) {
-          return event
-        }
-        return e;
-      });
-      this.set('events', updatedEvents);
-    },
-    monthResizeStop: function(event, jsEvent, ui, view) {
-      var updatedEvents = this.get('events').map(e => {
-        if (e.id === event.id) {
-          return event
-        }
-        return e;
-      });
-      this.set('events', updatedEvents);
-    },
-
-    // day planner interactions
-    eventDragStop: function(event, jsEvent, ui, view) {
-      var updatedEvents = this.get('events').map(e => {
-        if (e.id === event.id) {
-          return event
-        }
-        return e;
-      });
-      this.set('events', updatedEvents);
-    },
-    eventResizeStop: function(event, jsEvent, ui, view) {
-      var updatedEvents = this.get('events').map(e => {
-        if (e.id === event.id) {
-          return event
-        }
-        return e;
-      });
-      this.set('events', updatedEvents);
-    },
+    
+    // day agenda interactions
     editEvent: function(event,element,view) { 
-      log('editevent');
+      this.set('editingEventDetails',true);
+      this.set('event', event);
     },
+    // adds an event based on where in the agenda view the user clicked
     addEvent: function(date, jsEvent, view) {
-      log('addEvent');
       var events = this.get('events');
-      var id = events.length;
-
+      // all day events only contain information about the day, thus format will return 00:00:00
       var allDay = date.format('HH:mm:ss') === "00:00:00" ? true : false;
-
+      // creates object with some default parameters
+      // use Click to edit to idicate the appropriate user interaction to take
       var newEvent = Ember.Object.create({
-        id,
-        title: 'placeholder Event',
+        id: idGenerator(),
+        title: 'Click To Edit',
         className: allDay ? 'all-day-event' : 'regular-event',
         start: date,
         editable: true,
-        allDay
+        allDay,
+        content: ''
       });
+      // adds to the current set of user objects. this is an internal ember function
+      // and will notify that a re render to should take place
       events.pushObject(newEvent);
-      // debugger;
     },
-    // general rendering
-    eventRender: function(event, element, view) {
-      element.attr('id', event.id);
+    
+    // event edit form actions
+    saveEvent: function([event, title, content]) {
+      event.title = title;
+      event.content = content; 
+
+      var updatedEvents = this.get('events').map(e => {
+        if (e.id === event.id) {
+          return event
+        }
+        return e;
+      });
+      this.set('events', updatedEvents);
+      this.set('editingEventDetails', false);
+      this.set('event', null);
     },
-    eventAfterAllRender: function(view){
-      // if("agendaDay"===view.name){
-      //   if($(".calendar-day .fc-event").length>0){
-      //     var firstEvent = $(".calendar-day .fc-event:first")[0].style.top;
-      //     $('.calendar-day .fc-scroller,fc-time-grid-container')
-      //       .animate({scrollTop: firstEvent}, 2000);
-      //   }
-      // }          
+    exitEventForm: function() {
+      this.set('editingEventDetails', false);
+      this.set('event', null);
+    },
+    deleteEvent: function(event) {
+      var events = this.get('events').filter(e => {
+        return e.id !== event.id;
+      });
+      this.set('events', events);
+      this.set('editingEventDetails', false);
+      this.set('event', null); 
     },
   }
 });
+
+function idGenerator() {
+  // Math.random should be unique because of its seeding algorithm.
+  // Convert it to base 36 (numbers + letters), and grab the first 9 characters
+  // after the decimal.
+  return '_' + Math.random().toString(36).substr(2, 9);
+}

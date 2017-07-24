@@ -1,25 +1,32 @@
-<div class="col-xs-6 calendar-month">
+{{!-- month portion of screen --}}
+<div class="col-xs-12 col-sm-12 col-md-6 col-l-6 calendar-month">
 {{full-calendar events=events 
 dayClick=(action 'dayClicked')
 eventClick=(action 'eventClicked')
 slotDuration='00:30:00'
-eventDragStop=(action 'monthDragStop')
-eventResizeStop=(action 'monthResizeStop')
+eventDragStop=(action 'calendarEventUpdate')
+eventResizeStop=(action 'calendarEventUpdate')
 }}
 </div>
 
-<div class="col-xs-6 calendar-day">
-{{full-calendar events=events 
-viewName='agendaDay'
-slotDuration='00:30:00'
-slotLabelFormat='h(:mm)a'
-dayClick=(action 'addEvent')
-eventClick=(action 'editEvent')
-eventRender=(action 'eventRender')
-eventAfterAllRender=( action 'eventAfterAllRender')
-eventDragStop=(action 'eventDragStop')
-eventResizeStop=(action 'eventResizeStop')
-date=selectedDay
-aspectRatio=dayAspectRatio
-}}
+{{!-- second half of screen --}}
+<div class="col-xs-12 col-sm-12 col-md-6 col-l-6 calendar-day">
+{{#if editingEventDetails}}
+  {{event-form event=event 
+    submit=(action 'saveEvent') 
+    cancel=(action 'exitEventForm')
+    delete=(action 'deleteEvent')}}
+{{else}}
+  {{full-calendar events=events 
+  viewName='agendaDay'
+  slotDuration='00:30:00'
+  slotLabelFormat='h(:mm)a'
+  dayClick=(action 'addEvent')
+  eventClick=(action 'editEvent')
+  eventDragStop=(action 'calendarEventUpdate')
+  eventResizeStop=(action 'calendarEventUpdate')
+  date=selectedDay
+  aspectRatio=dayAspectRatio
+  }}
+{{/if}}
 </div>
