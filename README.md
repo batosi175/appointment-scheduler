@@ -14,15 +14,15 @@ Appointment should have a content/message/description field as well as a title.
 ## Usage
 | Action                   | Command                          | Element       |
 | ------------------------ | -------------------------------- | ------------- |
-| Select Day               | click day or event               | calendar pane |
-| extend event across days | drag event right edge across days| calendar pane |
-| move event day           | drag event to a different day    | calendar pane |
-| move event slot          | drag event to to different slot  | timeslot pane |
-| change event duration    | drag event bottom edge           | timeslot pane |
-| edit event               | click event                      | timeslot pane |
-| save event               | click save button                | event form    |
-| delete event             | click delete button              | event form    |
-| cancel edit              | click cancel button              | event form    |
+| Select Day               | click day or appointment               | calendar pane |
+| extend appointment across days | drag appointment right edge across days| calendar pane |
+| move appointment day           | drag appointment to a different day    | calendar pane |
+| move appointment slot          | drag appointment to to different slot  | timeslot pane |
+| change appointment duration    | drag appointment bottom edge           | timeslot pane |
+| edit appointment               | click appointment                      | timeslot pane |
+| save appointment               | click save button                | appointment form    |
+| delete appointment             | click delete button              | appointment form    |
+| cancel edit              | click cancel button              | appointment form    |
 
 
 ## Usability considerations
