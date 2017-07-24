@@ -15,8 +15,6 @@ One pane should have a calendar with clickable days, and the other should have t
 The time slots can be in any increment you wish - hourly, 30-minutes, 15-minutes, etc. 
 Each time slot must be able to have a text message attached to be able to make appointments.
 
-*** not sure what you mean here? does this entail that the appointment can have a text infomation associated with it? 
-
 A walk-through of a sample use of this application is as follows. 
 The user clicks on a day on the calendar, say, February 25th. 
 
