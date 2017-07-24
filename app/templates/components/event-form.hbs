@@ -1,0 +1,23 @@
+<div class="form-group">
+  <label for="event title">Event Title</label>
+  {{input class='form-control' value=title placeholder="Event Title"}}
+</div>
+<div class="form-group">
+  <label for="event description">Event Description</label>
+  {{textarea class='form-control' value=content placeholder="event Description"}}
+</div>
+ <div class="form-group button-block"> 
+   <div class="row">
+    <button type='button' class="btn btn-primary col-xs-4 col-xs-offset-1" onClick={{action 'save'}}> 
+      Save Event
+    </button>
+    <button type='button' class='btn btn-warning col-xs-4 col-xs-offset-2' onClick={{action 'cancel'}}> 
+      Cancel
+    </button>
+   </div>
+   <div class="row">
+    <button type='button' class='btn btn-danger col-xs-4 col-xs-offset-4' onClick={{action 'delete'}}> 
+      Delete
+    </button>
+   </div>
+ </div> 
