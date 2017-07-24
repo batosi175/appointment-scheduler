@@ -19,7 +19,7 @@ Appointment should have a content/message/description field as well as a title.
 | move event day           | drag event to a different day    | calendar pane |
 | move event slot          | drag event to to different slot  | timeslot pane |
 | change event duration    | drag event bottom edge           | timeslot pane |
-| edit event               | click Event                      | timeslot pane |
+| edit event               | click event                      | timeslot pane |
 | save event               | click save button                | event form    |
 | delete event             | click delete button              | event form    |
 | cancel edit              | click cancel button              | event form    |
